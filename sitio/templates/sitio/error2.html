@@ -1,0 +1,28 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+
+{% block content %}
+	<section id="feature" >
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12" align="center">
+					<img src="{% static 'img/sad.png' %}" align="center" width="200">
+					<br>
+					<br>
+					<br>
+				</div>
+				<div class="center wow fadeInDown">
+					<h2>Oops, parece que ocorreu um erro no envio do seu relatório.</h2>
+					<bold><h3 style="line-height: 24px; color: #4e4e4e;">Mas, calma! Podemos ajudar. Sugerimos que: </h3></bold>
+					<h4>- Responda novamente o formulário informado um endereço de e-mail diferente;</h4>
+					<div class="col-sm-3"></div>
+					<div class="col-sm-6">
+						<a href="{% url 'index' %}"><button class="btn btn-primary" style="border-radius:20px;">Desejo responder o formulário novamente</button></a>
+					</div>
+					<div class="col-sm-3"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock content %}

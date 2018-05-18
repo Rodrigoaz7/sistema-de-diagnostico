@@ -1,0 +1,1346 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% load social_widgets %}
+
+<script>
+    {% block jquery %}
+    {% if user.is_superuser %}
+    var endpoint = '/api/chart/data/admin'
+    var defaultData = []
+    var labels = [];
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function(data){
+            labels = ["Relatório 1", "Relatório 2", "Relatório 3"]
+            defaultData = [{{contador.num_pergunta_1_resposta_1}}, {{contador.num_financeiro_estrutural_nivel_2}}, {{contador.num_financeiro_estrutural_nivel_3}}]
+            setChart()
+        },
+        error: function(error_data){
+            console.log("error")
+            console.log(error_data)
+        }
+    })
+    
+    function setChart(){
+        var ctx = document.getElementById("relatorios_mkt");
+        var ctx2 = document.getElementById("relatorios_fin");
+        var ctx3 = document.getElementById("relatorios_pessoas");
+/*        var ctx4 = document.getElementById("media_p1");
+        var ctx5 = document.getElementById("media_p2");
+        var ctx6 = document.getElementById("media_p3");
+        var ctx7 = document.getElementById("media_p4");
+        var ctx8 = document.getElementById("media_p5");
+        var ctx9 = document.getElementById("media_p6");
+        var ctx10 = document.getElementById("media_p7");
+        var ctx11 = document.getElementById("media_p8");
+        var ctx12 = document.getElementById("media_p9");
+        var ctx13 = document.getElementById("media_p10");
+        var ctx14 = document.getElementById("media_p11");
+        var ctx15 = document.getElementById("media_p12"); */
+        
+        var relatorios_fin = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: defaultData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+    
+    var relatorios_mkt = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_marketing_nivel_1 }}, {{ contador.num_marketing_nivel_2 }}, {{ contador.num_marketing_nivel_3 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+        
+    var relatorios_pessoas = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pessoas_processos_nivel_1 }}, {{ contador.num_pessoas_processos_nivel_2 }}, {{ contador.num_pessoas_processos_nivel_3 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+
+/*    var media_p1 = new Chart(ctx4, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_1_resposta_1 }}/{{usuarios}}*100, {{ contador.num_pergunta_1_resposta_2 }}, {{ contador.num_pergunta_1_resposta_3 }}, {{ contador.num_pergunta_1_resposta_4 }}, {{ contador.num_pergunta_1_resposta_5 }}, {{ contador.num_pergunta_1_resposta_6 }}, {{ contador.num_pergunta_1_resposta_7 }}, {{ contador.num_pergunta_1_resposta_8 }}, {{ contador.num_pergunta_1_resposta_9 }}, {{ contador.num_pergunta_1_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+    
+   var media_p2 = new Chart(ctx5, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_2_resposta_1 }}, {{ contador.num_pergunta_2_resposta_2 }}, {{ contador.num_pergunta_2_resposta_3 }}, {{ contador.num_pergunta_2_resposta_4 }}, {{ contador.num_pergunta_2_resposta_5 }}, {{ contador.num_pergunta_2_resposta_6 }}, {{ contador.num_pergunta_2_resposta_7 }}, {{ contador.num_pergunta_2_resposta_8 }}, {{ contador.num_pergunta_2_resposta_9 }}, {{ contador.num_pergunta_2_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+    
+       var media_p3 = new Chart(ctx6, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_3_resposta_1 }}, {{ contador.num_pergunta_3_resposta_2 }}, {{ contador.num_pergunta_3_resposta_3 }}, {{ contador.num_pergunta_3_resposta_4 }}, {{ contador.num_pergunta_3_resposta_5 }}, {{ contador.num_pergunta_3_resposta_6 }}, {{ contador.num_pergunta_3_resposta_7 }}, {{ contador.num_pergunta_3_resposta_8 }}, {{ contador.num_pergunta_3_resposta_9 }}, {{ contador.num_pergunta_3_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+        
+    
+       var media_p4 = new Chart(ctx7, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_4_resposta_1 }}, {{ contador.num_pergunta_4_resposta_2 }}, {{ contador.num_pergunta_4_resposta_3 }}, {{ contador.num_pergunta_4_resposta_4 }}, {{ contador.num_pergunta_4_resposta_5 }}, {{ contador.num_pergunta_4_resposta_6 }}, {{ contador.num_pergunta_4_resposta_7 }}, {{ contador.num_pergunta_4_resposta_8 }}, {{ contador.num_pergunta_4_resposta_9 }}, {{ contador.num_pergunta_4_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+    
+       var media_p5 = new Chart(ctx8, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_5_resposta_1 }}, {{ contador.num_pergunta_5_resposta_2 }}, {{ contador.num_pergunta_5_resposta_3 }}, {{ contador.num_pergunta_5_resposta_4 }}, {{ contador.num_pergunta_5_resposta_5 }}, {{ contador.num_pergunta_5_resposta_6 }}, {{ contador.num_pergunta_5_resposta_7 }}, {{ contador.num_pergunta_5_resposta_8 }}, {{ contador.num_pergunta_5_resposta_9 }}, {{ contador.num_pergunta_5_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+    
+       var media_p6 = new Chart(ctx9, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_6_resposta_1 }}, {{ contador.num_pergunta_6_resposta_2 }}, {{ contador.num_pergunta_6_resposta_3 }}, {{ contador.num_pergunta_6_resposta_4 }}, {{ contador.num_pergunta_6_resposta_5 }}, {{ contador.num_pergunta_6_resposta_6 }}, {{ contador.num_pergunta_6_resposta_7 }}, {{ contador.num_pergunta_6_resposta_8 }}, {{ contador.num_pergunta_6_resposta_9 }}, {{ contador.num_pergunta_6_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+        
+       var media_p7 = new Chart(ctx10, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_7_resposta_1 }}, {{ contador.num_pergunta_7_resposta_2 }}, {{ contador.num_pergunta_7_resposta_3 }}, {{ contador.num_pergunta_7_resposta_4 }}, {{ contador.num_pergunta_7_resposta_5 }}, {{ contador.num_pergunta_7_resposta_6 }}, {{ contador.num_pergunta_7_resposta_7 }}, {{ contador.num_pergunta_7_resposta_8 }}, {{ contador.num_pergunta_7_resposta_9 }}, {{ contador.num_pergunta_7_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+    
+       var media_p8 = new Chart(ctx11, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_8_resposta_1 }}, {{ contador.num_pergunta_8_resposta_2 }}, {{ contador.num_pergunta_8_resposta_3 }}, {{ contador.num_pergunta_8_resposta_4 }}, {{ contador.num_pergunta_8_resposta_5 }}, {{ contador.num_pergunta_8_resposta_6 }}, {{ contador.num_pergunta_8_resposta_7 }}, {{ contador.num_pergunta_8_resposta_8 }}, {{ contador.num_pergunta_8_resposta_9 }}, {{ contador.num_pergunta_8_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+    
+   var media_p9 = new Chart(ctx12, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_9_resposta_1 }}, {{ contador.num_pergunta_9_resposta_2 }}, {{ contador.num_pergunta_9_resposta_3 }}, {{ contador.num_pergunta_9_resposta_4 }}, {{ contador.num_pergunta_9_resposta_5 }}, {{ contador.num_pergunta_9_resposta_6 }}, {{ contador.num_pergunta_9_resposta_7 }}, {{ contador.num_pergunta_9_resposta_8 }}, {{ contador.num_pergunta_9_resposta_9 }}, {{ contador.num_pergunta_9_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+        
+   var media_p10 = new Chart(ctx13, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_10_resposta_1 }}, {{ contador.num_pergunta_10_resposta_2 }}, {{ contador.num_pergunta_10_resposta_3 }}, {{ contador.num_pergunta_10_resposta_4 }}, {{ contador.num_pergunta_10_resposta_5 }}, {{ contador.num_pergunta_10_resposta_6 }}, {{ contador.num_pergunta_10_resposta_7 }}, {{ contador.num_pergunta_10_resposta_8 }}, {{ contador.num_pergunta_10_resposta_9 }}, {{ contador.num_pergunta_10_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+
+   var media_p11 = new Chart(ctx14, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_11_resposta_1 }}, {{ contador.num_pergunta_11_resposta_2 }}, {{ contador.num_pergunta_11_resposta_3 }}, {{ contador.num_pergunta_11_resposta_4 }}, {{ contador.num_pergunta_11_resposta_5 }}, {{ contador.num_pergunta_11_resposta_6 }}, {{ contador.num_pergunta_11_resposta_7 }}, {{ contador.num_pergunta_11_resposta_8 }}, {{ contador.num_pergunta_11_resposta_9 }}, {{ contador.num_pergunta_11_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    });
+        
+   var media_p12 = new Chart(ctx15, {
+        type: 'bar',
+        data: {
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10" ],
+            datasets: [{
+                label:"Respostas Obtidas",
+                data: [{{ contador.num_pergunta_12_resposta_1 }}, {{ contador.num_pergunta_12_resposta_2 }}, {{ contador.num_pergunta_12_resposta_3 }}, {{ contador.num_pergunta_12_resposta_4 }}, {{ contador.num_pergunta_12_resposta_5 }}, {{ contador.num_pergunta_12_resposta_6 }}, {{ contador.num_pergunta_12_resposta_7 }}, {{ contador.num_pergunta_12_resposta_8 }}, {{ contador.num_pergunta_12_resposta_9 }}, {{ contador.num_pergunta_12_resposta_10 }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)',
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Número de respostas'
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Diagnóstico'
+                    }
+                }],
+            }
+        }
+    }); */
+    
+    }
+     
+    // var ctx = document.getElementById("myChart");
+    
+    {% else %}
+
+    var endpoint = '/api/chart/data/'
+    var defaultData = [{{ nivelA}}, {{ nivelB }}, {{ nivelC }}]
+    var labels = ["Financeiro/Estrutural", "Marketing", "Pessoas/Processos"];
+    $.ajax({
+        method: "GET",
+        url: endpoint,
+        success: function(data){
+            labels = []
+            defaultData = defaultData
+            setChart()
+        },
+        error: function(error_data){
+            console.log("error")
+            console.log(error_data)
+        }
+    })
+
+    function setChart(){
+        var ctx = document.getElementById("myChart");
+        var ctx2 = document.getElementById("myChart2");
+        var myChart = new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+            labels: ["Financeiro/Estrutural", "Marketing", "Pessoas/Processos"],
+            datasets: [{
+                label:"Médias Obtidas",
+                data: defaultData,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    }
+                }]
+            }
+        }
+    });
+
+        var myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+			scaleOverride: true, 
+			scaleStepWidth: 1, 
+			scaleSteps: 10,
+            labels: ["Financeiro/Estrutural", "Marketing", "Pessoas/Processos"],
+            datasets: [{
+                label:"Médias Obtidas",
+                data: [{{ mediaAint }}, {{ mediaBint }}, {{ mediaCint }}],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                    }
+                }]
+            }
+        }
+    });
+    }
+
+    {% endif %}
+    {% endblock %}
+    </script>
+
+
+
+    
+    {% block content %}
+    
+
+    {% if user.is_authenticated and user.is_superuser %}
+
+    <section id="feature" >
+        <div class="container">
+            <div class="center wow fadeInDown">
+                <h2>RELATÓRIO DE DIAGNÓSTICOS</h2>
+        </div>
+            <div class="row">
+                <div class="features">
+                    <div class="col-md-4">
+                        <br>
+                        <h4 align="center">Por favor, selecione um dos segmentos para visualizar o gráfico de relatórios: </h4>
+                        <button class="btn btn-primary" onclick="displayReportGraph1()">Financeiro/Estrutural</button>
+                        <button class="btn btn-primary" onclick="displayReportGraph2()">Marketing</button>
+                        <button class="btn btn-primary" onclick="displayReportGraph3()">Pessoas/Processos</button>
+                    </div>
+                    <div class="col-sm-8 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <canvas id="relatorios_fin" style="display:block"></canvas>
+                    </div>
+                   <div class="col-sm-8 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <canvas id="relatorios_mkt" style="display:none"></canvas>
+                    </div>
+                    <div class="col-sm-8 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <canvas id="relatorios_pessoas" style="display:none"></canvas>
+                    </div>
+
+                    <br>
+                    <br>
+                </div>
+            </div><!--/.row--> 
+            <div class="row">
+                <div class="features">
+                    <div class="col-md-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 1</h2>
+                        <p><bold>Opção 1: </bold>{{media_p1_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p1_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p1_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p1_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p1_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p1_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p1_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p1_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p1_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p1_r10|floatformat:2}}%</p>  
+                    </div>
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 2</h2>
+                        <p><bold>Opção 1: </bold>{{media_p2_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p2_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p2_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p2_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p2_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p2_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p2_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p2_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p2_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p2_r10|floatformat:2}}%</p>
+                    </div>
+                    
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 3</h2>
+                        <p><bold>Opção 1: </bold>{{media_p3_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p3_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p3_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p3_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p3_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p3_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p3_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p3_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p3_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p3_r10|floatformat:2}}%</p>
+                    </div>
+                    
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 4</h2>
+                        <p><bold>Opção 1: </bold>{{media_p4_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p4_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p4_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p4_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p4_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p4_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p4_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p4_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p4_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p4_r10|floatformat:2}}%</p>
+                    </div>
+                    
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 5</h2>
+                        <p><bold>Opção 1: </bold>{{media_p5_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p5_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p5_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p5_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p5_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p5_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p5_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p5_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p5_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p5_r10|floatformat:2}}%</p>
+                    </div>
+                    
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 6</h2>
+                        <p><bold>Opção 1: </bold>{{media_p6_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p6_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p6_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p6_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p6_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p6_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p6_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p6_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p6_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p6_r10|floatformat:2}}%</p>
+                    </div>
+                    <div class="col-md-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 7</h2>
+                        <p><bold>Opção 1: </bold>{{media_p7_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p7_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p7_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p7_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p7_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p7_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p7_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p7_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p7_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p7_r10|floatformat:2}}%</p>  
+                    </div>
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 8</h2>
+                        <p><bold>Opção 1: </bold>{{media_p8_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p8_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p8_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p8_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p8_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p8_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p8_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p8_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p8_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p8_r10|floatformat:2}}%</p>
+                    </div>
+                    
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 9</h2>
+                        <p><bold>Opção 1: </bold>{{media_p9_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p9_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p9_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p9_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p9_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p9_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p9_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p9_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p9_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p9_r10|floatformat:2}}%</p>
+                    </div>
+                    
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 10</h2>
+                        <p><bold>Opção 1: </bold>{{media_p10_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p10_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p10_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p10_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p10_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p10_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p10_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p10_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p10_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p10_r10|floatformat:2}}%</p>
+                    </div>
+                    
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 11</h2>
+                        <p><bold>Opção 1: </bold>{{media_p11_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p11_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p11_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p11_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p11_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p11_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p11_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p11_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p11_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p11_r10|floatformat:2}}%</p>
+                    </div>
+                    
+                    <div class="col-sm-2 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                        <h2 class="center wow fadeInDown">Resultados para Pergunta 12</h2>
+                        <p><bold>Opção 1: </bold>{{media_p12_r1|floatformat:2}}%</p>
+                        <p><bold>Opção 2: </bold>{{media_p12_r2|floatformat:2}}%</p>
+                        <p><bold>Opção 3: </bold>{{media_p12_r3|floatformat:2}}%</p>
+                        <p><bold>Opção 4: </bold>{{media_p12_r4|floatformat:2}}%</p>
+                        <p><bold>Opção 5: </bold>{{media_p12_r5|floatformat:2}}%</p>
+                        <p><bold>Opção 6: </bold>{{media_p12_r6|floatformat:2}}%</p>
+                        <p><bold>Opção 7: </bold>{{media_p12_r7|floatformat:2}}%</p>
+                        <p><bold>Opção 8: </bold>{{media_p12_r8|floatformat:2}}%</p>
+                        <p><bold>Opção 9: </bold>{{media_p12_r9|floatformat:2}}%</p>
+                        <p><bold>Opção 10: </bold>{{media_p12_r10|floatformat:2}}%</p>
+                    </div>
+
+                </div>
+            </div>
+        </div><!--/.container-->
+    </section><!--/#feature-->
+
+   {% elif user.is_authenticated %} 
+    <section id="feature" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 align="center" style="color:#696666;">Relatório de Diagnósticos</h1>
+                        <br>
+                    </div>
+                    <div class="features">
+                        <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center" style="margin-bottom:50px">      
+                            <br>
+                            <div class="box_report" id="style-1">
+                                <div class="box_header"><h2>Análise Contextual</h2></div>
+                                {% for i in relatorio1 %}
+                                    <h2>{{ i.titulo }}</h2>
+                                    <p>{{ i.texto }}</p>
+                                {% endfor %}
+    
+                                {% for i in relatorio2 %}
+                                    <h2>{{ i.titulo }}</h2>
+                                    <p>{{ i.texto }}</p>
+                                {% endfor %}
+    
+                                {% for i in relatorio3 %}
+                                    <h2>{{ i.titulo }}</h2>
+                                    <p>{{ i.texto }}</p>
+                                {% endfor %}
+
+                            </div>
+							<br>
+							<iframe src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fwww.diagnosticojrs.com.br&layout=button&size=large&mobile_iframe=true&width=117&height=28&appId" width="117" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true></iframe>
+							
+                        </div>
+                    </div>
+                    <div class="features">
+                        <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center" style="margin-bottom:50px">
+                            <h2 align="center" style="color:#696666;"> Classificação de Segmentos por Níveis </h2>
+                            <br>
+                            <canvas id="myChart" height="300px"></canvas>
+                        </div>
+                        <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms" align="center">
+                            <h2 align="center" style="color:#696666;"> Médias por Segmento  </h2>
+                            <br>
+                            <canvas id="myChart2"></canvas>
+                            <br>
+                            <br>
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6">
+                                <a href="{% url 'logout' %}"><button class="btn btn-primary" style="border-radius:20px;">SAIR</button></a>
+                            </div>
+                            <div class="col-md-4"></div>
+							<div class="col-md-8">
+                                <a href="{% url 'pdf' %}"><button class="btn btn-primary" id="relatorio" style="border-radius:20px;" onclick="">Receber relatório por e-mail</button></a>
+                                <h4>ATENÇÃO: Ao clicar nessa opção você fará o logout automaticamente!</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--/.row-->    
+            </div><!--/.container-->
+        </section><!--/#feature-->
+
+       <!-- {% else %}
+        <section id="feature" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12" align="center">
+                        <img src="{% static 'img/sad.png' %}" align="center" width="200">
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="center wow fadeInDown">
+                        <h2>Desculpe, esse conteúdo só pode ser acessado por usuários administradores.</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        
+        <script>
+            function displayReportGraph1() {
+                var x = document.getElementById("relatorios_fin");
+                var y = document.getElementById("relatorios_mkt");
+                var z = document.getElementById("relatorios_pessoas")
+                if (x.style.display === "none") {
+                    x.style.display = "block";
+                    y.style.display = "none";
+                    z.style.display = "none";
+                } else {
+                    x.style.display = "none";
+                    y.style.display = "none";
+                    z.style.display = "none";
+                }
+            }
+            
+            function displayReportGraph2() {
+                var x = document.getElementById("relatorios_fin");
+                var y = document.getElementById("relatorios_mkt");
+                var z = document.getElementById("relatorios_pessoas")
+                if (y.style.display === "none") {
+                    x.style.display = "none";
+                    y.style.display = "block";
+                    z.style.display = "none";
+                } else {
+                    x.style.display = "none";
+                    y.style.display = "none";
+                    z.style.display = "none";
+                }
+            }
+            
+            function displayReportGraph3() {
+                var x = document.getElementById("relatorios_fin");
+                var y = document.getElementById("relatorios_mkt");
+                var z = document.getElementById("relatorios_pessoas")
+                if (z.style.display === "none") {
+                    x.style.display = "none";
+                    y.style.display = "none";
+                    z.style.display = "block";
+                } else {
+                    x.style.display = "none";
+                    y.style.display = "none";
+                    z.style.display = "none";
+                }
+            }
+
+
+        </script>
+    
+    {% endblock content %}

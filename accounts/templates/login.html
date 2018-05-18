@@ -1,0 +1,78 @@
+{% extends 'home/base.html' %}
+
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+<body>
+	<div id="section-bg" style="background: url({% static 'img/bg.jpeg' %}) no-repeat center; background-size: cover;background-attachment: fixed;">
+		<div style="margin-top: 120px; padding-top: 70px;">
+			<style>
+				.title h2:after {
+					background: #24deff !important;
+					width: 100px;
+				}
+			</style>
+		</div>
+		<div class="container">
+			<div class="row contact-wrap"> 
+				<form id="main-contact-form" class="contact-form" name="contact-form" method="post">
+					<div class="col-md-4"></div>
+						<div class="col-md-4" id="login" style="margin: 10px;">
+							{% csrf_token %}
+							{% for error in form.non_field_errors %}
+								<div class="alert alert-danger">
+									{{ error }}
+								</div>
+							{% endfor %}  
+							<fieldset>
+								<!--<img src="{% static 'img/icon.png' %}" height="100" style="margin-left: 28%">-->
+								<div class="form-group{% if form.username.errors %} has-error{% endif %}">
+									<div class="col-md-12">
+                                        <br>
+                                        <div class="center title">        
+                                            <h2>LOGIN</h2>
+                                        </div> 
+										<center><img src="{% static 'img/user.png' %}" height="100" ></center>
+										<br>
+										<br>
+
+										<label for="{{ form.username.auto_id }}" class="control-label">{{ form.username.label }}</label>
+										{% render_field form.username class="form-control" %}
+										{% for error in form.username.errors %}
+											<span class="help-block">{{ error }}</span>
+										{% endfor %}
+										<br>
+									</div>
+								</div>
+								<div class="form-group{% if form.password.errors %} has-error{% endif %}">
+									<div class="col-md-12">
+										<label for="{{ form.password.auto_id }}" class="control-label">{{ form.password.label }}</label>
+										{% render_field form.password class="form-control" %}
+										{% for error in form.password.errors %}
+											<span class="help-block">{{ error }}</span>
+										{% endfor %}
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="col-md-12">
+										<br>
+										<a href="{% url 'index' %}"> Clique aqui para se cadastrar!</a>
+										<button type="submit" class="btn btn-primary">ENTRAR</button>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					<div class="col-md-4"></div>
+				</form>
+				<br>
+				<br>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+ 	<script src="{% static 'assets/bootstrap.min.js' %}"></script>
+</body>
+{% endblock content %}

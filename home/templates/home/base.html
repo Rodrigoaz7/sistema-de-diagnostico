@@ -1,0 +1,265 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url" content="http://www.diagnosticojrs.com.br" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="[Teste] Minha empresa está bem estruturada? - JRS Consultoria" />
+    <meta property="og:description"   content="Se você vive no meio empresarial provavelmente já deve ter parado para pensar como avaliar e diagnosticar sua empresa sem utilizar documentação extensiva. Agora pode simplesmente responder nosso teste e descobrir como melhorar. Clique aqui! " />
+    <meta property="og:image"         content="http://www.jrsconsultoria.com.br/wp-content/uploads/2017/09/255-1024x683.jpg" />
+    <title>JRS Consultoria - Empresa Júnior da Consultoria Empresarial da UFAL</title>
+    
+    <!-- core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/prettyPhoto.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->       
+
+    <!-- Latest compiled and minified CSS 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+-->
+    <!-- Optional theme 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+-->
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js'></script>
+    <link id="favicon" rel="shortcut icon" href="{% static 'img/icon.png' %}" type="image/png">
+  </head>
+  <body class="homepage">
+
+
+    <style type="text/css">
+        p{
+            font-family: 'Hind', sans-serif;
+        }
+        .top-bar p{
+            color: #bcc7c4;
+        }
+        .top-bar {
+            position: fixed;
+            top: 0px;
+            z-index: 9;
+            width: 100%;
+        }
+        .navbar-collapse {
+            max-height: 340px;
+            padding-right: 15px;
+            padding-left: 0px;
+            margin-top: 15px;
+            overflow-x: visible;
+            border-top: transparent; 
+            box-shadow: transparent;
+            background-color: white;
+        }
+        .navbar-inverse {
+            height:auto!important;
+            z-index:9;
+        }
+        body {
+            background: #f2f2f2;
+        }
+        #nav {
+            border: none;
+            background-image: linear-gradient(to bottom,#ffffff 0,#fff 100%);
+            text-shadow: none;
+            padding-bottom: 15px;
+            position: fixed;
+            top: 50px;
+            width: 100%;
+            font-family: 'Hind', 'Lato', sans-serif;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+        .navbar-inverse .navbar-toggle .icon-bar {
+            background-color: #454545;
+        }
+        .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+            background-color: transparent;
+        }
+        .navbar-inverse .navbar-toggle {
+            border-color: transparent;
+        }
+        /* ESTILOS PARA A PÁGINA DO DIAGNÓSTICO  */
+        /* Especificações para a div de 'Análise Contextual'  */
+        .box_header{
+            width:100%;
+            background-color: rgba(15, 136, 146, 0.74);
+            border-radius: 5px;
+            padding-top: 5px;
+            padding-bottom: 10px;
+        }
+        .box_report{
+            height: 410px;
+            width:100%;
+            background-color: rgba(24, 162, 173, 0.55);
+            border-radius: 5px;
+            overflow-y: scroll;
+        }
+        .box_header h2{
+            color: white;
+        }
+        #style-1::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background-color: #F5F5F5;
+        }
+        #style-1::-webkit-scrollbar
+        {
+            width: 12px;
+            background-color: #F5F5F5;
+        }
+        #style-1::-webkit-scrollbar-thumb
+        {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: #e3e3e3;
+        }
+        .scrollbar
+        {
+            margin-left: 30px;
+            float: left;
+            height: 300px;
+            background: #F5F5F5;
+            overflow-y: scroll;
+            margin-bottom: 25px;
+        }
+        /* Fim de especificações para a div de 'Análise Contextual'  */
+        @media screen and (min-width: 768px) {
+           .navbar-brand {
+               margin-top: 5px;
+           } 
+        }
+        @media screen and (max-width: 767px) {
+           .navbar-brand {
+               margin-top: 0px;
+           } 
+        }
+        @media screen and (max-width: 767px){
+            .top-number {
+                visibility: hidden;
+                height: 0px;
+                font-size: 0px;
+                margin-top: -20px;
+            }
+            .social {
+                margin-top: -20px;
+            }
+        }
+        
+        #feature {
+            margin-top: 150px;
+        }
+        .top-number{
+            display: inline-block;
+        }
+        
+    </style>
+    
+    <header id="header">
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="top-number"><p><i class="fa fa-mobile-phone"></i>  +55 (82) 3214-1139<i class="fa fa-envelope"> </i>  contato@jrsconsultoria.com.br</p></div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="social">
+                                <ul class="social-share">
+                                    <li><a href="https://www.facebook.com/jrsconsultoria"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="https://plus.google.com/103929524285220776600"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="https://www.instagram.com/jrsconsultoria/"><i class="fa fa-instagram"></i></a></li> 
+                                </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!--/.container-->
+        </div><!--/.top-bar-->
+          
+        <nav class="navbar navbar-inverse" role="banner" id="nav">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="http://www.jrsconsultoria.com.br/"><img src="http://www.jrsconsultoria.com.br/wp-content/uploads/2016/05/logo.svg" alt="logo" style="max-height: 70px;"></a>
+                </div>
+                
+                <div class="collapse navbar-collapse navbar-right">
+                    <ul class="nav navbar-nav">
+                        {% if user.is_superuser %}
+                            <li><a href="http://www.jrsconsultoria.com.br/" style="color: #484848">Home</a></li>
+                            <li><a href="{% url 'index' %}" style="color: #484848">Formulário</a></li>
+                            <li class="active"><a href="{% url 'home' %}" style="color: #484848">Relatório de Diagnósticos</a></li>
+                            <li><a href="{% url 'logout' %}" style="color: #484848">Sair</a></li> 
+                        {% elif user.is_authenticated and not user.is_superuser %}
+                        <li><a href="{% url 'logout' %}" style="color: #484848">Home</a></li>
+                        <li><a href="{% url 'logout' %}" style="color: #484848">Formulário</a></li>
+                        <li class="active"><a href="{% url 'logout' %}" style="color: #484848">Relatório de Diagnósticos</a></li>
+                        <li><a href="{% url 'logout' %}" style="color: #484848">Sair</a></li> 
+                        {% else %}
+                        <li><a href="http://www.jrsconsultoria.com.br/" style="color: #484848">Home</a></li>
+                        <li><a href="{% url 'index' %}" style="color: #484848">Formulário</a></li>
+                        <li class="active"><a href="{% url 'home' %}" style="color: #484848">Relatório de Diagnósticos</a></li>
+                        <li><a href="{% url 'login' %}" style="color: #484848">Login</a></li>  
+                        {% endif %}                     
+                    </ul>
+                </div>
+            </div><!--/.container-->
+        </nav><!--/nav-->
+    </header><!--/header-->
+
+      {% block content %}
+      {% endblock content %}
+
+    <script>
+    $(document).ready(function(){
+      {% block jquery %}{% endblock %}
+    })
+    </script>
+
+    <footer id="footer" class="midnight-blue">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6" style="font-size: 1.4rem; line-height: 50px;">
+                    Copyright © 2016 JRS CONSULTORIA.
+                </div>
+
+               <div class="col-sm-6">
+                    <ul class="pull-right">
+                        <li><a href="http://www.ejectufrn.com.br/" target="_blank"><img src="{% static 'img/ejectlogo.png'%}" style="max-height:50px;"></a></li>
+                    </ul>
+                </div> 
+            </div>
+        </div>
+    </footer><!--/#footer-->
+
+    <!--<script src="{% static 'js/jquery.js' %}"></script>-->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/jquery.prettyPhoto.js' %}"></script>
+    <script src="{% static 'js/jquery.isotope.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/wow.min.js' %}"></script>
+
+  </body>
+</html>
