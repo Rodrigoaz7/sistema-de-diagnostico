@@ -13,15 +13,15 @@ from django.contrib.messages import get_messages
 
 
 class RelatorioView(LoginRequiredMixin,TemplateView):
-        usuarios = User.objects.all().count()
-        template_name = 'diagnostico/relatorio.html'
+	usuarios = User.objects.all().count()
+	template_name = 'diagnostico/relatorio.html'
 
 
 index = RelatorioView.as_view()
 
 def index(request):
-    usuarios = User.objects.all().count()
-    context = {
-        'cont_usuarios': cont_usuarios,
-    }
-    return render (request, 'diagnostico/relatorio.html', context)
+	usuarios = User.objects.all().count()
+	context = {
+		'cont_usuarios': cont_usuarios,
+	}
+	return render(request, 'diagnostico/relatorio.html', context)

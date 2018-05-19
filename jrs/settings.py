@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 	'social_widgets',
 ]
 
-MIDDLEWARE = [
+MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -161,5 +161,5 @@ AUTH_USER_MODEL = 'accounts.User' #Usuário customizado
 #Essa autenticação serve para o usuário poder logar com o e-mail!!
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    #'accounts.backends.ModelBackend' #Criado por mim
+    'accounts.backends.ModelBackend', #Criado por mim
 )

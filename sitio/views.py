@@ -56,9 +56,6 @@ class ChartData(APIView):
             form = UserAdminCreationForm(request.POST or None)
 
             if not Control.objects.filter(identificador=request.POST.get('email')).exists():
-            #if User.objects.filter(username=request.POST.get('username')).exists():
-            #   messages.error(request, 'User ja existe, tente outro!')
-            #else:
                 if form.is_valid():
                     user = form.save()
                     dados = Dados()
@@ -141,18 +138,20 @@ class ChartData(APIView):
                         'cont_usuarios': cont_usuarios,
                         'num': num,
                     }
-
         
                     #Ao enviar uma resposta, pegamos o ID do usuário que a enviou
-                    controle = Control()
-                    controle.identificador = user.email
-                    controle.save()
+                    #controle = Control()
+                    #controle.identificador = user.email
+                    #controle.save()
                     #Enviar e-mail com relatório
                     form.send_email(user.email)
-            
+
                     #Logando o usuario recém-cadastrado, apenas para manter o template diagnostico privado
-                    print("teste01111")
-                    login(request, user)        
+                    logger = authenticate(email=user.email)
+
+                    if logger is not None:
+                        if logger.is_active:
+                            login(request, logger)        
                     form = UserAdminCreationForm()
 
                     return render(request, 'diagnostico/relatorio.html', context)

@@ -3,13 +3,11 @@ from django.contrib.auth import get_user_model
 from .models import User
 
 class ModelBackend(BaseModelBackend):
-	#Função de autenticação de login por username/login
-	def authenticate(self, username=None, password=None):
-		if not username is None:
-			UserModel = get_user_model()
+	#Função de autenticação de login por email apenas
+	def authenticate(self, email=None):
+		if not email is None:
 			try:
-				user = User.objects.get(email=username)
-				if user.check_password(password):
-					return user
+				user = User.objects.get(email=email)
+				return user
 			except User.DoesNotExist:
 				pass

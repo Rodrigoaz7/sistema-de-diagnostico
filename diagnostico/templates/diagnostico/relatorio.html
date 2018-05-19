@@ -5,6 +5,7 @@
 
 <script>
     {% block jquery %}
+
     {% if user.is_superuser %}
     var endpoint = '/api/chart/data/admin'
     var defaultData = []
@@ -1275,8 +1276,7 @@
                 </div><!--/.row-->    
             </div><!--/.container-->
         </section><!--/#feature-->
-
-       <!-- {% else %}
+        {% else %}
         <section id="feature" >
             <div class="container">
                 <div class="row">
