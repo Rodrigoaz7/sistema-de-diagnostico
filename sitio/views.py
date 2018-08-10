@@ -144,7 +144,7 @@ class ChartData(APIView):
                     #controle.identificador = user.email
                     #controle.save()
                     #Enviar e-mail com relatório
-                    form.send_email(user.email)
+                    #form.send_email(user.email)
 
                     #Logando o usuario recém-cadastrado, apenas para manter o template diagnostico privado
                     logger = authenticate(email=user.email)

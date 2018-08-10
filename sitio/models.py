@@ -29,7 +29,7 @@ class Control(models.Model):
 	class Meta:
 		verbose_name = 'Controle'
 		verbose_name_plural = 'Controles'
-		ordering = ['identificador']        
+		ordering = ['identificador']     
 
 class Description(models.Model):
     message_form = models.TextField('Descrição para o Formulário', blank=True)
